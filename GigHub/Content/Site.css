@@ -154,3 +154,12 @@ h6,
         font-size: 15px;
     }
 
+.gigs > li .action {
+    font-size: 15px;
+    display: none;
+}
+
+.gigs > li:hover .action {
+    display: block;
+}
+
