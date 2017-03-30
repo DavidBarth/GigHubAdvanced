@@ -44,10 +44,12 @@ namespace GigHub.Controllers
         {
             var viewModel = new GigFormViewModel
             {
-                Genres = _context.Genres.ToList()
+                Genres = _context.Genres.ToList(),
+                Heading = "Create Gig"
+
             };
 
-            return View(viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -58,7 +60,7 @@ namespace GigHub.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
 
             var gig = new Gig
@@ -75,7 +77,7 @@ namespace GigHub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        //
         //returning view that will be populated with current user's 
         //upcoming gigs
         [Authorize]
@@ -87,6 +89,25 @@ namespace GigHub.Controllers
                 .ToList();
 
             return View(myGigs);
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id) //gets the id passed over from view as an anonymus object
+        {
+            var userId = User.Identity.GetUserId();
+
+            var singleGig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+            var viewModel = new GigFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+                Date = singleGig.DateTime.ToString("d MMM yyyy"),
+                Time = singleGig.DateTime.ToString("HH:mm"),
+                Genre = singleGig.GenreId,
+                Venue = singleGig.Venue,
+                Heading = "Edit Gig"
+            };
+
+            return View("GigForm", viewModel);
         }
     }
 }

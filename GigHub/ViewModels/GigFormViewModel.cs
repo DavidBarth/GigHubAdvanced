@@ -7,6 +7,8 @@ namespace GigHub.ViewModels
 {
     public class GigFormViewModel
     {
+        
+
         [Required]
         public string Venue { get; set; }
 
@@ -22,6 +24,9 @@ namespace GigHub.ViewModels
         public byte Genre { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
+
+        //property for dynamic heading
+        public String Heading { get; set; }
 
         public DateTime GetDateTime()
         {
