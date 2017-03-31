@@ -100,6 +100,7 @@ namespace GigHub.Controllers
             var viewModel = new GigFormViewModel
             {
                 Genres = _context.Genres.ToList(),
+                Id = singleGig.Id,
                 Date = singleGig.DateTime.ToString("d MMM yyyy"),
                 Time = singleGig.DateTime.ToString("HH:mm"),
                 Genre = singleGig.GenreId,
@@ -108,6 +109,30 @@ namespace GigHub.Controllers
             };
 
             return View("GigForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel viewModel)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+                return View("GigForm", viewModel);
+            }
+
+            var userId = User.Identity.GetUserId();
+            //using the Id taken from viewModel and checking that it's for the currently logged in user
+            var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            //udating the properties of the gig with data from viewModel
+            gig.Venue = viewModel.Venue;
+            gig.DateTime = viewModel.GetDateTime();
+            gig.GenreId = viewModel.Genre;
+            _context.SaveChanges();
+
+            return RedirectToAction("Mine", "Gigs");
         }
     }
 }
