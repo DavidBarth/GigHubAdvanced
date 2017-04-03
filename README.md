@@ -26,3 +26,6 @@ Course itinerary:
 - Extending ASP.NET Identity Users
 - Implementing RESTful Web API
 - DTOs - Using Data Transfer Objetcs
+- AJAX 
+- Bootbox.js
+
