@@ -23,11 +23,16 @@
                     {
                         <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
                     }
+                    
+                    @if (gig.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
                 </span>
                 <span class="genre">
                     @gig.Genre.Name
                 </span>
-                @if (Model.ShowActions)
+                @if (Model.ShowActions && gig.IsCanceled==false)
                 {
                     <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
                 }

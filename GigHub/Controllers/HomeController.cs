@@ -15,13 +15,13 @@ namespace GigHub.Controllers
         {
             _context = new ApplicationDbContext();
         }
-
+        
         public ActionResult Index()
         {
             var upcomingGigs = _context.Gigs
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
-                .Where(g => g.DateTime > DateTime.Now);
+                .Where(g => g.DateTime > DateTime.Now && g.IsCanceled==false); 
 
             var viewModel = new GigsViewModel
             {
