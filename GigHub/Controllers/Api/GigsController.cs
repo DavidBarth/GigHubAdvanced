@@ -21,6 +21,13 @@ namespace GigHub.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
             var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+            
+            //although it's a logical delete we should behave as it's a physical delete
+            if (gig.IsCanceled)
+            {
+                return NotFound();
+            }
+
             gig.IsCanceled = true;
             _context.SaveChanges();
             return Ok();
