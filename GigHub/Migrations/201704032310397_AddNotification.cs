@@ -1,7 +1,8 @@
 namespace GigHub.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
+    
     public partial class AddNotification : DbMigration
     {
         public override void Up()
@@ -32,7 +33,7 @@ namespace GigHub.Migrations
                     })
                 .PrimaryKey(t => new { t.UserId, t.NotficationId })
                 .ForeignKey("dbo.Notifications", t => t.Id, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.Id);
             
