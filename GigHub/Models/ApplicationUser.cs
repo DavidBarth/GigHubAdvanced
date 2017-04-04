@@ -18,10 +18,13 @@ namespace GigHub.Models
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
 
+        public ICollection<UserNotification> UserNotifications { get; set; }
+
         public ApplicationUser()
         {
             Followers = new Collection<Following>();
             Followees = new Collection<Following>();
+            UserNotifications = new Collection<UserNotification>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -30,6 +33,21 @@ namespace GigHub.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public void Notify(Notification notification)
+        {
+            var userNotification = new UserNotification
+            {
+                User = this, //referring to this user as the current user to be notified
+                Notification = notification
+            };
+
+            
+            //_context.UserNotifications.Add(userNotification);
+            //context is about infrastructure and persistence and
+            //doesn't belong to a domain class that is persistence ignorant
+            UserNotifications.Add(userNotification); //Cold save EF treats it as an object and saves it to DB
         }
     }
 }
