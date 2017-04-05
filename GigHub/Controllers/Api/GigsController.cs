@@ -1,5 +1,6 @@
 ﻿using GigHub.Models;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -20,7 +21,11 @@ namespace GigHub.Controllers.Api
         public IHttpActionResult Cancel(int id)
         {
             var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+            var gig = _context.Gigs
+                //eager loading using lambda expression - System.Data.Entity
+                //and getting the attendee from the collection of attendances
+                .Include(g => g.Attendances.Select(a => a.Attendee))
+                .Single(g => g.Id == id && g.ArtistId == userId);
             
             //although it's a logical delete we should behave as it's a physical delete
             if (gig.IsCanceled)
@@ -34,15 +39,9 @@ namespace GigHub.Controllers.Api
             //When gig is canceled create Notification
             var notification = new Notification(NotificationType.GigCanceled, gig);
             
-
-            //getting all attendees for the canceled gig
-            var attendees = _context.Attendances
-                .Where(a => a.GigId == gig.Id) //this query returns attendance objects for the given gig
-                .Select(a => a.Attendee)    //selects attendee that is the ApplicationUser object
-                .ToList();
-
+                               
             //iterate over the collection of attendees
-            foreach (var attendee in attendees)
+            foreach (var attendee in gig.Attendances.Select(a => a.Attendee))
             {
                 //call Notify() of ApplicationUser class as attendee is of that type
                 //and the behaviour is refactored into the model class

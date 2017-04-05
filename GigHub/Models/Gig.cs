@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace GigHub.Models
 {
     public class Gig
     {
+        public ICollection<Attendance> Attendances { get;private set; }//making sure no overwriting is happening elsewhere
+
         public int Id { get; set; }
 
         public bool IsCanceled { get; set; }
@@ -24,5 +28,14 @@ namespace GigHub.Models
 
         [Required]
         public byte GenreId { get; set; }
+
+        
+        public Gig()
+        {
+            Attendances = new Collection<Attendance>();
+        }
+
+
+
     }
 }
