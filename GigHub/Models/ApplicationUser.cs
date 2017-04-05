@@ -37,17 +37,11 @@ namespace GigHub.Models
 
         public void Notify(Notification notification)
         {
-            var userNotification = new UserNotification
-            {
-                User = this, //referring to this user as the current user to be notified
-                Notification = notification
-            };
-
-            
+                                 
             //_context.UserNotifications.Add(userNotification);
             //context is about infrastructure and persistence and
             //doesn't belong to a domain class that is persistence ignorant
-            UserNotifications.Add(userNotification); //Cold save EF treats it as an object and saves it to DB
+            UserNotifications.Add(new UserNotification(this, notification);); //Cold save EF treats it as an object and saves it to DB
         }
     }
 }

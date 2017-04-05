@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GigHub.Models
@@ -10,9 +11,9 @@ namespace GigHub.Models
         public bool IsRead { get; set; }
         
         //nav property
-        public ApplicationUser User { get; set; }
-        //nav property
-        public Notification Notification { get; set; }
+        public ApplicationUser User { get; private set; } //private to not be able change one end of the relationship
+        //nav property                                      // because that's conceptually a different relationship
+        public Notification Notification { get; private set; }
 
         //primary key
         [Key] //for composite primary key definition
@@ -23,6 +24,23 @@ namespace GigHub.Models
         [Key]
         [Column(Order = 2)]
         public int NotficationId { get; set; }
+
+        //default constructor for EF because it can't call the below constructor to create UserNotification
+        protected UserNotification()
+        {
+
+        }
+        public UserNotification(ApplicationUser user, Notification notification)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+            if (notification == null)
+                throw new ArgumentNullException("notification");
+
+            User = user;
+            Notification = notification;
+
+        }
 
     }
 }
