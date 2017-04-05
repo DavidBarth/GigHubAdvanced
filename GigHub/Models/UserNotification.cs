@@ -18,12 +18,12 @@ namespace GigHub.Models
         //primary key
         [Key] //for composite primary key definition
         [Column(Order = 1)] //defining order for primary keys
-        public string UserId { get; set; }
+        public string UserId { get; private set; }
 
         //primary key
         [Key]
         [Column(Order = 2)]
-        public int NotficationId { get; set; }
+        public int NotficationId { get; private set; }
 
         //default constructor for EF because it can't call the below constructor to create UserNotification
         protected UserNotification()
