@@ -84,7 +84,28 @@ namespace GigHub.Controllers
             _context.Gigs.Add(gig);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Mine", "Gigs");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            //ensuring only the logged in user car edit gig
+            var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+
+            //autopopulating view model for editing
+            var viewModel = new GigFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+                Date = gig.DateTime.ToString("d MMM yyyy"),
+                Time = gig.DateTime.ToString("HH:mm"),
+                Genre = gig.GenreId,
+                Venue = gig.Venue
+            };
+
+            //returns Create view populated with data from DB
+            return View("Create", viewModel);
         }
     }
 }
