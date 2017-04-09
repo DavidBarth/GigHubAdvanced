@@ -170,6 +170,8 @@ C:\DAVE\GigHub2\GigHub\bin\System.Web.WebPages.Deployment.dll
 C:\DAVE\GigHub2\GigHub\bin\System.Web.WebPages.dll
 C:\DAVE\GigHub2\GigHub\bin\System.Web.WebPages.Razor.dll
 C:\DAVE\GigHub2\GigHub\bin\WebGrease.dll
+C:\DAVE\GigHub2\GigHub\bin\EntityFramework.xml
+C:\DAVE\GigHub2\GigHub\bin\EntityFramework.SqlServer.xml
 C:\DAVE\GigHub2\GigHub\bin\System.Net.Http.Formatting.xml
 C:\DAVE\GigHub2\GigHub\bin\System.Web.Http.xml
 C:\DAVE\GigHub2\GigHub\bin\System.Web.Http.WebHost.xml
@@ -182,8 +184,6 @@ C:\DAVE\GigHub2\GigHub\bin\System.Web.WebPages.Deployment.xml
 C:\DAVE\GigHub2\GigHub\bin\System.Web.WebPages.Razor.xml
 C:\DAVE\GigHub2\GigHub\bin\Antlr3.Runtime.pdb
 C:\DAVE\GigHub2\GigHub\bin\Newtonsoft.Json.xml
-C:\DAVE\GigHub2\GigHub\bin\EntityFramework.xml
-C:\DAVE\GigHub2\GigHub\bin\EntityFramework.SqlServer.xml
 C:\DAVE\GigHub2\GigHub\bin\Microsoft.AspNet.Identity.Core.xml
 C:\DAVE\GigHub2\GigHub\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\DAVE\GigHub2\GigHub\bin\Microsoft.AspNet.Identity.EntityFramework.xml
