@@ -70,7 +70,7 @@ namespace GigHub.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
 
             var gig = new Gig
@@ -105,7 +105,7 @@ namespace GigHub.Controllers
             };
 
             //returns Create view populated with data from DB
-            return View("Create", viewModel);
+            return View("GigForm", viewModel);
         }
     }
 }
