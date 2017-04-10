@@ -56,10 +56,11 @@ namespace GigHub.Controllers
         {
             var viewModel = new GigFormViewModel
             {
+                Heading = "Add a Gig",
                 Genres = _context.Genres.ToList()
             };
 
-            return View(viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -97,6 +98,8 @@ namespace GigHub.Controllers
             //autopopulating view model for editing
             var viewModel = new GigFormViewModel
             {
+                Id = gig.Id, //need to initialize to see wether it is a new or existing gig
+                Heading = "Edit a Gig",
                 Genres = _context.Genres.ToList(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
@@ -106,6 +109,30 @@ namespace GigHub.Controllers
 
             //returns Create view populated with data from DB
             return View("GigForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+                return View("GigForm", viewModel);
+            }
+            var userId = User.Identity.GetUserId();
+
+            //pulling in the existing gig
+            var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+
+            gig.Venue = viewModel.Venue;
+            gig.DateTime = viewModel.GetDateTime();
+            gig.GenreId = viewModel.Genre;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Mine", "Gigs");
         }
     }
 }
