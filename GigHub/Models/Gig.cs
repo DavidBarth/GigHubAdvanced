@@ -7,6 +7,9 @@ namespace GigHub.Models
     {
         public int Id { get; set; }
 
+        //logical delete prop
+        public bool IsCanceled { get; set; }
+
         public ApplicationUser Artist { get; set; }
 
         [Required]
