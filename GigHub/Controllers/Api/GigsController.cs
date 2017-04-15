@@ -26,6 +26,10 @@ namespace GigHub.Controllers.Api
             //getting gig from DB and making sure the user who created that gig
             //can cancel gig
             var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+            
+            //if calling the cancel method second time -> acting as record wouldn't exist anymore
+            if (gig.IsCanceled)
+                return NotFound();
 
             gig.IsCanceled = true;
 
