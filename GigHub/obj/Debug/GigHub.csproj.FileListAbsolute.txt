@@ -205,7 +205,7 @@ C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddForeignKeyPropertiesToGig.
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddNameToApplicationUser.resources
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddAttendance.resources
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddFollowing.resources
+C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddIsCanceledToGig.resources
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.csproj.GenerateResource.Cache
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.dll
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.pdb
-C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.Migrations.AddIsCanceledToGig.resources
