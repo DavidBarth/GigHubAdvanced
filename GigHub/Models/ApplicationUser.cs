@@ -38,18 +38,11 @@ namespace GigHub.Models
 
         public void Notify(Notification notification)
         {
-            var userNotification = new UserNotification
-            {
-                User = this,
-                Notification = notification
-
-            };
-
            //removed _context.UserNotifications.Add(userNotification)
            //as _context is about ifrastructure and shouldn't be part of domain class 
            //as it is persistence ignorant
            //save to DB cold
-            UserNotifications.Add(userNotification);
+            UserNotifications.Add(new UserNotification(this, notification));
         }
     }
 }

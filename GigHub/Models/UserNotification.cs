@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GigHub.Models
@@ -20,8 +21,28 @@ namespace GigHub.Models
 
         
         //navigation properties
-        public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; private set; }
 
-        public Notification Notification { get; set; }
+        public Notification Notification { get; private set; }
+
+        //creating default constructor as EF cannot call the below constructor
+        //protected to have it for EF but not for elsewhere in code
+        protected UserNotification()
+        {
+
+        }
+
+        //constructor to ensure valid objects
+        //when UserNotification is constructed it must have a User and Notification associated to it
+        public UserNotification(ApplicationUser user, Notification notification)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            if (notification == null)
+                throw new ArgumentNullException("notification");
+            User = user;
+            Notification = notification
+        }
     }
 } 
