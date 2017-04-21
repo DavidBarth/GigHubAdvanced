@@ -13,15 +13,15 @@ namespace GigHub.Models
         //primary keys
         [Key]                   //for composite primary key definition
         [Column(Order = 1)]     //define order for primary key
-        public string UserId { get; set; }
+        public string UserId { get; private set; }
 
         [Key]   
         [Column(Order = 2)]
-        public int NotificationId { get; set; }
+        public int NotificationId { get; private set; }
 
         
         //navigation properties
-        public ApplicationUser User { get; private set; }
+        public ApplicationUser User { get; private set; } // private to be accessed only from this class
 
         public Notification Notification { get; private set; }
 
@@ -42,7 +42,7 @@ namespace GigHub.Models
             if (notification == null)
                 throw new ArgumentNullException("notification");
             User = user;
-            Notification = notification
+            Notification = notification;
         }
     }
 } 
