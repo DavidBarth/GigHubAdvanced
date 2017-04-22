@@ -18,7 +18,6 @@ namespace GigHub.Controllers.Api
         }
 
         //method called from client when clicked Cancel gig in UI using AJAX
-
         [HttpDelete]    //attribute because we want it the action only to be used with DELETE HTTP verb
         public IHttpActionResult Cancel(int id)
         {

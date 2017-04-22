@@ -37,11 +37,11 @@ namespace GigHub.Models
             Attendances = new Collection<Attendance>();
         }
 
-        internal void Cancel()
+        public void Cancel()
         {
             IsCanceled = true;
 
-            var notification = new Notification(NotificationType.GigCanceled, gig);
+            var notification = new Notification(NotificationType.GigCanceled, this);
 
             //iterate over attendees and create
             //userNotification for each user as it is the 
