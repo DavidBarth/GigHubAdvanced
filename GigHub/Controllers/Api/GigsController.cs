@@ -27,24 +27,14 @@ namespace GigHub.Controllers.Api
             //getting gig from DB and making sure the user who created that gig
             //can cancel gig
             var gig = _context.Gigs
-                .Include(g => g.Attendances.Select(a => a.Attendee)) //eager loading attendees that go to gig
+                .Include(g => g.Attendances.Select(a => a.Attendee)) //eager loading attendees that go to gig 
                 .Single(g => g.Id == id && g.ArtistId == userId);
             
             //if calling the cancel method second time -> acting as record wouldn't exist anymore
             if (gig.IsCanceled)
                 return NotFound();
 
-            gig.IsCanceled = true;
-
-            var notification = new Notification(NotificationType.GigCanceled, gig);
-
-            //iterate over attendees and create
-            //userNotification for each user as it is the 
-            //instance of the notification for a particular user
-            foreach (var attendee in gig.Attendances.Select(a => a.Attendee))
-            {
-                attendee.Notify(notification);
-            }
+            gig.Cancel();
 
             _context.SaveChanges();
 

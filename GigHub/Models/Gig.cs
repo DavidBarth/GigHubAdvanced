@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace GigHub.Models
 {
@@ -10,7 +11,7 @@ namespace GigHub.Models
         public int Id { get; set; }
 
         //logical delete prop
-        public bool IsCanceled { get; set; }
+        public bool IsCanceled { get; private set; }
 
         public ApplicationUser Artist { get; set; }
 
@@ -36,5 +37,21 @@ namespace GigHub.Models
             Attendances = new Collection<Attendance>();
         }
 
+        internal void Cancel()
+        {
+            IsCanceled = true;
+
+            var notification = new Notification(NotificationType.GigCanceled, gig);
+
+            //iterate over attendees and create
+            //userNotification for each user as it is the 
+            //instance of the notification for a particular user
+            foreach (var attendee in Attendances.Select(a => a.Attendee))
+            {
+                attendee.Notify(notification);
+            }
+
+             
+        }
     }
 }
