@@ -29,7 +29,8 @@ namespace GigHub.Models
         {
             modelBuilder.Entity<Attendance>()
                 .HasRequired(a => a.Gig)
-                .WithMany()
+                //basically g goes to the implemented nav property in gig
+                .WithMany(g => g.Attendances) // making sure EF sees the reverse relationship and doesn't treat it as new column in DB
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()
@@ -46,7 +47,7 @@ namespace GigHub.Models
             //Introducing FOREIGN KEY constraint 'FK_dbo.UserNotifications_dbo.AspNetUsers_UserId'...
             modelBuilder.Entity<UserNotification>()
                 .HasRequired(n => n.User)
-                .WithMany()
+                .WithMany(u => u.UserNotifications) //u goes to the implemented nav property in user
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
