@@ -210,3 +210,5 @@ C:\DAVE\GigHub2\GigHub\bin\Microsoft.Owin.Security.Twitter.xml
 C:\DAVE\GigHub2\GigHub\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.dll
 C:\DAVE\GigHub2\GigHub\obj\Debug\GigHub.pdb
+C:\DAVE\GigHub2\GigHub\bin\AutoMapper.dll
+C:\DAVE\GigHub2\GigHub\bin\AutoMapper.xml

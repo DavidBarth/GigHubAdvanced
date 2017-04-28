@@ -27,34 +27,18 @@ namespace GigHub.Controllers.Api
                .Where(un => un.UserId == userId)
                .Select(un => un.Notification)
                .Include(n => n.Gig.Artist)
-               .ToList(); 
+               .ToList();
 
-            //Select extension method
-            //mapping notifciations to ndtos
-            return notifications.Select(n => new NotificationDto() //lmd exp. to repr. anonym.() -- method takes not.obj. returns dto
-            {
-                DateTime = n.DateTime,
-                Gig = new GigDto
-                {
-                    Artist = new UserDto
-                    {
-                        Id = n.Gig.ArtistId,
-                        Name = n.Gig.Artist.Name
-                    },
-
-                    DateTime = n.Gig.DateTime,
-                    Id = n.Gig.Id,
-                    IsCanceled= n.Gig.IsCanceled,
-                    Venue = n.Gig.Venue
-                },
-
-                OriginalDateTime=n.OriginalDateTime,
-                OriginalVenue = n.OriginalVenue,
-                Type=n.Type
-            }
-            );
+            //CreateMap generic type takes a source and destination param
+            //
+            AutoMapper.Mapper.CreateMap<ApplicationUser, UserDto>();
+            AutoMapper.Mapper.CreateMap<Gig, GigDto>();
+            AutoMapper.Mapper.CreateMap<Notification, NotificationDto>();
 
 
+            //returns a notificationDto to hide internalities of business objects
+            //lamda exp. replaced with a reference of Map method of Mapper class
+            return notifications.Select(AutoMapper.Mapper.Map<Notification, NotificationDto>);
 
         }
            
