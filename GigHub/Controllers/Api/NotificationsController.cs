@@ -19,7 +19,7 @@ namespace GigHub.Controllers.Api
         }
 
 
-        public IEnumerable <Notification> getNewNotifications()
+        public IEnumerable <NotificationDto> getNewNotifications()
         {
             var userId = User.Identity.GetUserId();
 
@@ -27,9 +27,34 @@ namespace GigHub.Controllers.Api
                .Where(un => un.UserId == userId)
                .Select(un => un.Notification)
                .Include(n => n.Gig.Artist)
-               .ToList();
+               .ToList(); 
 
-            return notifications;
+            //Select extension method
+            //mapping notifciations to ndtos
+            return notifications.Select(n => new NotificationDto() //lmd exp. to repr. anonym.() -- method takes not.obj. returns dto
+            {
+                DateTime = n.DateTime,
+                Gig = new GigDto
+                {
+                    Artist = new UserDto
+                    {
+                        Id = n.Gig.ArtistId,
+                        Name = n.Gig.Artist.Name
+                    },
+
+                    DateTime = n.Gig.DateTime,
+                    Id = n.Gig.Id,
+                    IsCanceled= n.Gig.IsCanceled,
+                    Venue = n.Gig.Venue
+                },
+
+                OriginalDateTime=n.OriginalDateTime,
+                OriginalVenue = n.OriginalVenue,
+                Type=n.Type
+            }
+            );
+
+
 
         }
            
