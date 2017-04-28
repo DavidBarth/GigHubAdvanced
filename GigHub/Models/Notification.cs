@@ -29,8 +29,11 @@ namespace GigHub.Models
         }
 
 
+
+        /// <summary>
+        /// Factory methods that return a Notification ensuring object validity
+        /// </summary>
         #region
-        //factory methods that return a Notificiation ensuring object validity
         public static Notification GigCreated(Gig gig)
         {
             return new Notification(NotificationType.GigCreated, gig);
@@ -39,8 +42,8 @@ namespace GigHub.Models
         public static Notification GigUpdated(Gig newGig, DateTime originalDateTime, string originalVenue)
         {
             var notification = new Notification(NotificationType.GigUpdated, newGig);
-            notification.OriginalDateTime = originalDateTime; //would get null reference error if not storing originals
-            notification.OriginalVenue = originalVenue;
+            notification.OriginalDateTime = originalDateTime;   //would get null reference error if not storing originals
+            notification.OriginalVenue = originalVenue;         //would get null reference error if not storing originals
             return notification; 
         }
 
