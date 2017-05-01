@@ -29,11 +29,7 @@ namespace GigHub.Controllers.Api
                .Include(n => n.Gig.Artist)
                .ToList();
 
-            //CreateMap generic type takes a source and destination param
-            //
-            AutoMapper.Mapper.CreateMap<ApplicationUser, UserDto>();
-            AutoMapper.Mapper.CreateMap<Gig, GigDto>();
-            AutoMapper.Mapper.CreateMap<Notification, NotificationDto>();
+            
 
 
             //returns a notificationDto to hide internalities of business objects
