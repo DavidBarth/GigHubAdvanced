@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GigHub.Controllers.Api
+namespace GigHub.Dtos
 {
     public class GenreDto
     {

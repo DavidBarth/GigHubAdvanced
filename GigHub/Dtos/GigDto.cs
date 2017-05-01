@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GigHub.Controllers.Api
+namespace GigHub.Dtos
 {
     public class GigDto
     {

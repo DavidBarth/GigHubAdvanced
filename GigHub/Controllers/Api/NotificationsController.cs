@@ -1,4 +1,5 @@
-﻿using GigHub.Models;
+﻿using GigHub.Dtos;
+using GigHub.Models;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,8 +24,9 @@ namespace GigHub.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
+            //return all notifications for currently logged in user that aren't read yet
             var notifications = _context.UserNotifications
-               .Where(un => un.UserId == userId)
+               .Where(un => un.UserId == userId && !un.IsRead)
                .Select(un => un.Notification)
                .Include(n => n.Gig.Artist)
                .ToList();
