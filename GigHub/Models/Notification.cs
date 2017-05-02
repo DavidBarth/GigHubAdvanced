@@ -18,6 +18,14 @@ namespace GigHub.Models
         [Required]
         public Gig Gig { get; private set; }
 
+        /// <summary>
+        /// parameterless constructor to avoid System.Reflection.TargetInvocationException on calling the notifications API
+        /// </summary>
+        public Notification()
+        {
+
+        }
+
         private Notification(NotificationType type, Gig gig)
         {
             if (gig == null)

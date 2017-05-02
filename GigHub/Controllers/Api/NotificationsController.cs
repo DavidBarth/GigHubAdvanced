@@ -31,6 +31,8 @@ namespace GigHub.Controllers.Api
                .Include(n => n.Gig.Artist)
                .ToList();
 
+            var numberOfNotifications = notifications.Count;
+
             
 
 
