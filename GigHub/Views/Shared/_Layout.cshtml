@@ -39,6 +39,26 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/x-template" id="notifications-template">
+        <ul>
+            <%
+            _.each(notifications, function(element){
+                if(element.type == 3) { %>
+                    <li><%= element.gig.artist.name %> has canceled the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
+                <%}
+                
+                if(element.type == 1) { %>
+                    <li><%= element.gig.artist.name %> has created the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
+                <%}
+
+                if(element.type == 2) { %>
+                    <li><%= element.gig.artist.name %> has updated the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
+                <%}
+
+            })
+            %>
+        </ul>
+    </script>
     <script>
         $(document).ready(function () { 
             $.getJSON("/api/notifications", function (notifications) { //using getJSON to call the API -- 
@@ -46,9 +66,21 @@
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide")
-                .addClass("animated rollIn");
+                    .addClass("animated rollIn");
+
+                $(".notifications").popover({
+                    html: true,
+                    title: "Notifications",
+                    content: function () {
+                        var compiled = _.template($("#notifications-template").html());
+                        return compiled({notifications: notifications});
+                    },
+                    placement: "bottom"
+                });
 
             });
+
+            
         });
     </script>
 </body>
