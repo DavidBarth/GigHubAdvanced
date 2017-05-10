@@ -40,7 +40,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script type="text/x-template" id="notifications-template">
-        <ul>
+        <ul class="notifications">
             <%
             _.each(notifications, function(element){
                 if(element.type == 3) { %>
