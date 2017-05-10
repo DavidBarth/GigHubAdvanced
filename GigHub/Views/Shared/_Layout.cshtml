@@ -62,7 +62,8 @@
     <script>
         $(document).ready(function () { 
             $.getJSON("/api/notifications", function (notifications) { //using getJSON to call the API -- 
-                                                                       //callback funtion that gets notfications returned from the server
+                                                                        //callback funtion that gets notfications returned from the server
+                if (notifications.length == 0) return;                                                
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide")
