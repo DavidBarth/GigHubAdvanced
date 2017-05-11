@@ -36,6 +36,10 @@ span.field-validation-error {
 .voffset5 { margin-top: 80px; }
 
 /* Bootstrap Overrides */
+
+.popover {
+    box-shadow:0px;
+}
 .navbar-inverse {
     background-color: #ff4342;
     border-color: #ff4342;
