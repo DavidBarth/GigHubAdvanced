@@ -43,18 +43,30 @@
         <ul class="notifications">
             <%
             _.each(notifications, function(element){
-                if(element.type == 3) { %>
-                    <li><%= element.gig.artist.name %> has canceled the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
-                <%}
-                
-                if(element.type == 1) { %>
-                    <li><%= element.gig.artist.name %> has created the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
-                <%}
+            if(element.type == 1) { %>
+            <li><%= element.gig.artist.name %> has canceled the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
+            <%}
 
-                if(element.type == 2) { %>
-                    <li><%= element.gig.artist.name %> has updated the gig at <%= element.gig.venue %> at <%= element.gig.dateTime %>.</li>
-                <%}
+            else if(element.type == 2) {
+            var changes = [],
+            originalValues = [],
+            newValues = [];
 
+            if(element.originalVenue != element.gig.venue) {
+            changes.push('venue');
+            originalValues.push(element.originalVenue);
+            newValues.push(element.gig.venue);
+            }
+
+            if(element.originalDateTime != element.gig.dateTime){
+            changes.push('date/time');
+            originalValues.push(element.originalDateTime);
+            newValues.push(element.gig.dateTime);
+            }
+            %>
+            <li><%= element.gig.artist.name %> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+            <%
+            }
             })
             %>
         </ul>
