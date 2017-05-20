@@ -16,6 +16,11 @@ namespace GigHub.Controllers
             _context = new ApplicationDbContext();
         }
 
+
+        /// <summary>
+        /// Returns Gigs view populated with gigs
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             var upcomingGigs = _context.Gigs
