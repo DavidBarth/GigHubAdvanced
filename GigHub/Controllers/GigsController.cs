@@ -17,6 +17,17 @@ namespace GigHub.Controllers
             _context = new ApplicationDbContext();    
         }
 
+        /// <summary>
+        /// redirect to Index action in Home and passes in the search term
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns>Action</returns>
+        [HttpPost] //executed only in form post
+        public ActionResult Search(GigsViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
+        }
+
         [Authorize]
         public ActionResult Mine()
         {
