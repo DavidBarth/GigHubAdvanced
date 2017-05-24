@@ -8,7 +8,7 @@ namespace GigHub.Models
     public class UserNotification
     {
         public int Id { get; set; }
-        public bool IsRead { get; set; }
+        public bool IsRead { get; private set; }
         
         //primary keys
         [Key]                   //for composite primary key definition
@@ -43,6 +43,11 @@ namespace GigHub.Models
                 throw new ArgumentNullException("notification");
             User = user;
             Notification = notification;
+        }
+
+        internal void Read()
+        {
+            IsRead = true;
         }
     }
 } 

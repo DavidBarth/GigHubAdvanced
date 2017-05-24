@@ -92,7 +92,13 @@
                     //apply popover-notification to refer to it in site.css
                     template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
                 }).on("shown.bs.popover", function () {
-                    console.log("Popover shown");
+                    $.post("/api/notifications/markAsRead")
+                        .done(function () {
+                            $(".js-notifications-count")
+                            .text("")
+                            .addClass("hide");
+                        });
+                    
                 });
 
             });

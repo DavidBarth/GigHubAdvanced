@@ -55,10 +55,7 @@ namespace GigHub.Controllers.Api
                 .Where(un => un.UserId == userId && !un.IsRead)
                 .ToList();
 
-            foreach(var notification in notifications)
-            {
-                notification.IsRead = true;
-            }
+            notifications.ForEach(n => n.Read());
 
             _context.SaveChanges();
 
